@@ -93,7 +93,7 @@ wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 console.log("ok");
 */
 //
-// wsS , sww , winkel , ssw
+// wsS , sww , winkel , sws
 //
 var abc=[0.0,0.0,0.0],abg_w=[0.0,0.0,0.0];
 abc[0] = document.getElementById('a').value;if(abc[0]){document.getElementById('aa').value=abc[0];}
@@ -109,13 +109,13 @@ wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 if(!winkel(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
 console.log("fehler");
-if(!ssw(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
+if(!sws(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
 console.log("fehler");
 console.log("ok");
 
 
 
-function ssw(a,b,c,alpha,beta,gamma){
+function sws(a,b,c,alpha,beta,gamma){
     //
     // a, b und gamma vorhanden
     // c, alpha und beta berechnen
