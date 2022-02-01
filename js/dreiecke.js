@@ -38,6 +38,10 @@ function acos(x)
 {
     return (Math.acos(x))/Math.PI*180;
 }
+function asin(x)
+{
+    return (Math.asin(x))/Math.PI*180;
+}
 function atn(x)
 {
     return Math.atan(x) / Math.PI * 180;
@@ -98,7 +102,14 @@ abg_w[1]=30;
 sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 console.log("ok");
 */
-
+//
+//  wsS
+//
+abc[0]=4;
+abc[1]=4;
+abg_w[0]=30;
+wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
+console.log("ok");
 
 
 
@@ -186,6 +197,52 @@ function sww(a,b,c,alpha,beta,gamma){
         abc[0] = (c * sin(abg_w[0])) / sin(abg_w[2]);
         abc[1] = (c * sin(abg_w[1])) / sin(abg_w[2]);
         return 1;
+    }
+}
+
+//
+// zwei Seiten und der der größeren Seite gegenüberliegende Winkel (SsW oder WsS)
+//
+function wsS(a,b,c,alpha,beta,gamma){
+    if(alpha != 0 && a != 0){
+        if(b != 0){
+            abg_w[1] = asin( b * sin(alpha) / a);
+            abg_w[2] = 180 - alpha -abg_w[1];
+            abc[2] = sin(abg_w[2]) * b / sin(abg_w[1]);
+            
+        }
+        else if(c != 0){
+            abg_w[2] = asin( c * sin(alpha) / a);
+            abg_w[1] = 180 - alpha -abg_w[2];
+            abc[1] = sin(abg_w[1]) * c / sin(abg_w[2]);
+            
+        }
+    }
+    //
+    else if(beta != 0 && b != 0){
+        if(a != 0){
+            abg_w[0] = asin( a * sin(beta) / b);
+            abg_w[2] = 180 - beta -abg_w[0];
+            abc[2] = sin(abg_w[2]) * b / sin(beta);
+        }
+        else if(c != 0){
+            abg_w[2] = asin( c * sin(beta) / b);
+            abg_w[0] = 180 - beta -abg_w[2];
+            abc[0] = sin(abg_w[0]) * b / sin(beta);
+        }
+    }
+    //
+    else if(gamma != 0 && c != 0){
+        if(a != 0){
+            abg_w[0] = asin( a * sin(gamma) / c);
+            abg_w[1] = 180 - gamma -abg_w[0];
+            abc[1] = sin(abg_w[1]) * c / sin(gamma);
+        }
+        else if(b != 0){
+            abg_w[1] = asin( b * sin(gamma) / c);
+            abg_w[0] = 180 - gamma -abg_w[1];
+            abc[0] = sin(abg_w[0]) * c / sin(gamma);
+        }
     }
 }
 
