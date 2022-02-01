@@ -1,39 +1,17 @@
 
+/*
+var Dreieck = function(a,b,c,alpha,beta,gamma,weg){
+    
+    this.a = a;
+    this.b = b;
+    this.c = c;
+    this.alpha = alpha;
+    this.beta = beta;
+    this.gamma = gamma;
 
-var Dreieck = function(a,b,c,weg){
-    //
-    //  a , b und c vorhanden
-    //
-    if(weg == 1){
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        //
-        // alpha ,beta und gamma berechnen
-        //
-        this.alpha = acos((a * a - b * b - c * c) / (-2 * b * c));
-        this.beta = acos((b * b - c * c - a * a) / (-2 * c * a));
-        this.gamma = acos((c * c - a * a - b * b) / (-2 * a * b));
-    }
-    //
-    //  a , b und gamma vorhanden
-    //
-    else if(weg == 2){
-        this.a = a;
-        this.b = b;
-        this.gamma = c;
-        //
-        // c , alpha und beta berechnen
-        //
-        
-        this.c = Math.sqrt((a*a + b*b -2*a*b*cos(this.gamma)));
-        c=this.c;
-        this.alpha = acos((a * a - b * b - c * c) / (-2 * b * c));
-        this.beta = acos((b * b - c * c - a * a) / (-2 * c * a));
-
-
-        
-    }
+    if(this.a == 0 || this.b == 0 || this.c ==0 )
+    ssw(a,b,c,alpha,beta,gamma);
+   
     // ha ,hb und hc berechnen
     this.ha = this.b * sin(this.gamma);
     this.hb = this.c * sin(this.alpha);
@@ -52,6 +30,7 @@ var Dreieck = function(a,b,c,weg){
     
     
 }
+*/
 //
 //
 //
@@ -70,16 +49,16 @@ function cos(x){
     return Math.cos( x * Math.PI / 180);
 }
 
-//let a=0,b=0,c=0,alpha=0.0,beta=0.0,gamma=0.0;
-let a = document.getElementById('a').value;
-let b = document.getElementById('b').value;
-let c = document.getElementById('c').value;
-
+var abc=[0,0,0],abg_w=[0.0,0.0,0.0];
+//a = document.getElementById('a').value;
+//b = document.getElementById('b').value;
+//c = document.getElementById('c').value;
+/*
 if(a != 0 && b!=0 && c!=0){
     let weg = 1;
-    var new_dreick = new Dreieck(a,b,c,weg);
+    var new_dreick = new Dreieck(a,b,c,alpha,beta,gamma,weg);
     console.log(new_dreick);
-}
+}*/
 //
 //  
 //
@@ -92,12 +71,124 @@ else if((alpha + beta + gamma) == 180){
 */
 //
 // zwei Seiten und der eingeschlossene Winkel
-//new Dreieck(a,b,gamma,weg=2)
-if((a !=0 && b !=0 && gamma !=0)){
+// ssw
+/*
 let weg = 2;
-var new_dreick = new Dreieck(4,5,80,weg);
-console.log(new_dreick);
+abc[0]=4;
+abc[2]=4;
+abg_w[0]=60;
+if(!ssw(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
+console.log("fehler");
+
+//
+//sss
+//
+abc[0]=4;
+abc[2]=4;
+abc[1]=4;
+if(!winkel(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
+console.log("fehler");
+
+//
+// ssw
+//
+abc[0]=4;
+abg_w[2]=30;
+abg_w[1]=30;
+sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
+console.log("ok");
+*/
+
+
+
+
+function ssw(a,b,c,alpha,beta,gamma){
+    //
+    // a, b und gamma vorhanden
+    // c, alpha und beta berechnen
+    if(a != 0 &&  b != 0 && gamma !=0){
+        abc[2] = Math.sqrt((a*a + b*b -2*a*b*cos(gamma)));
+        alpha = acos((a * a - b * b - c * c) / (-2 * b * c));
+        beta = acos((b * b - c * c - a * a) / (-2 * c * a));
+        return 1;
+    }
+    //
+    // a, c und beta vorhanden
+    // b, alpha und gamma berechnen
+    else if(a != 0 && c !=0 && beta !=0){
+        abc[1] = Math.sqrt((a * a + c * c - 2 * a * c * cos(beta)));
+        b = abc[1];
+        abg_w[0] = acos((a * a - b * b - c * c) / (-2 * b * c));
+        abg_w[2] = acos((c * c - b * b - a * a) / (-2 * b * a));
+        return 1;
+    }
+    //
+    // c, b und alpha vorhanden
+    // a, gamma und beta berechnen
+    else if (b != 0 && c !=0 && alpha !=0){
+        abc[0] = Math.sqrt((b*b + c*c -2*c*b*cos(alpha)));
+        abg_w[1] = acos((b * b - c * c - a * a) / (-2 * c * a));
+        abg_w[2] = acos((c * c - a * a - b * b) / (-2 * a * b));
+        return 1;
+    }
+    else{return 0;}
 }
+//
+// winkel berechnen
+// sss vorhanden
+//
+function winkel(a,b,c,alpha,beta,gamma){
+    //
+    // alpha ,beta und gamma berechnen
+    //
+    if(a != 0 && b != 0 && c != 0){
+        abg_w[0] = acos((a * a - b * b - c * c) / (-2 * b * c));
+        abg_w[1] = acos((b * b - c * c - a * a) / (-2 * c * a));
+        abg_w[2] = acos((c * c - a * a - b * b) / (-2 * a * b));
+        return 1;
+    }
+    else{return 0;}
+}
+//
+//  eine Seite und zwei Winkel
+//  sww
+//
+function sww(a,b,c,alpha,beta,gamma){
+    //
+    // berechnet rest Winkel
+    //
+    if(alpha == 0 && beta !=0 && gamma != 0){
+        if((180 - beta - gamma) <= 0.0){return 0;}
+        else{abg_w[0] = 180 - beta - gamma;}
+    }
+    else if(alpha != 0 && beta ==0 && gamma != 0){
+        if((180 - alpha - gamma) <= 0.0){return 0;}
+        else{abg_w[1] = 180 - alpha - gamma;}
+    }
+    else if(alpha != 0 && beta !=0 && gamma == 0){
+        if((180 - beta - alpha) <= 0.0){return 0;}
+        else{abg_w[2] = 180 - beta - alpha;}
+    }
+    //
+    // berechnet reste Seiten
+    //
+    if(a != 0 && b == 0 && c == 0){
+        abc[1] = (a * sin(abg_w[1])) / sin(abg_w[0]);
+        abc[2] = (a * sin(abg_w[2])) / sin(abg_w[0]);
+        return 1;
+    }
+    else if(b != 0 && a == 0 && c == 0){
+        abc[0] = (b * sin(abg_w[0])) / sin(abg_w[1]);
+        abc[2] = (b * sin(abg_w[2])) / sin(abg_w[1]);
+        return 1;
+    }
+    else if(c != 0 && a == 0 && b == 0){
+        abc[0] = (c * sin(abg_w[0])) / sin(abg_w[2]);
+        abc[1] = (c * sin(abg_w[1])) / sin(abg_w[2]);
+        return 1;
+    }
+}
+
 
 
 
