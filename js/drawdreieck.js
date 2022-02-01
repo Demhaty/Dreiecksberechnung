@@ -29,8 +29,31 @@ function draw(ctx){
     ctx.fillText("b",  x_a+(xx_3/2)-25 , y_a -(h_c/2));
     //
     //
+    //let rad = (Math.PI / 180) * degrees
+    ctx.beginPath();
     //
+    let ggg = (180 - abg_w[0]);
+    ctx.arc(x_a,y_a , 60 ,Math.PI+((Math.PI/180)*ggg),0);
+    
+    ctx.stroke();
+    // 
+    ctx.beginPath();
+    ggg = 180 - abg_w[1];
+    ctx.arc(x_b,y_a , 60,Math.PI,0-((Math.PI/180)*ggg));
+    ctx.stroke();
+    //
+    ctx.beginPath();
+     ggg= (180 -abg_w[2])/2;
 
+    ctx.arc(x_c,y_c , 60,Math.PI-((Math.PI/180)*ggg),0+((Math.PI/180)*ggg),true);
+    ctx.stroke();
+    //
+    //  alpha , beta und gamma zeichen auf dreieck
+    //
+    ctx.font = "15px Arial";
+    ctx.fillText('α', x_a+40  , y_a-12); 
+    ctx.fillText('β', x_b-40  , y_a-12);
+    ctx.fillText('γ', x_c  , y_c+30);
 
 }
 
