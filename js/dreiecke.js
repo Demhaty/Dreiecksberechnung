@@ -1,33 +1,11 @@
 
-/*
-var Dreieck = function(a,b,c,alpha,beta,gamma){
-    
-    this.a = a;
-    this.b = b;
-    this.c = c;
-    this.alpha = alpha;
-    this.beta = beta;
-    this.gamma = gamma;
+var obj = {'ha' : 0, 'hb' : 0 , 'hc' : 0 ,'u' : 0 ,'A' :0 , 'ru' : 0 , 'ri' :0 
+, 'sa' : 0 , 'sb' : 0 , 'sc' : 0 , 'w_alpha' : 0 , 'w_beta' : 0 , 'w_gamma' : 0};
 
-   
-    // ha ,hb und hc berechnen
-    this.ha = this.b * sin(this.gamma);
-    this.hb = this.c * sin(this.alpha);
-    this.hc = this.a * sin(this.beta);
-     
-    //u 
-    this.u = this.a + this.b + this.c;
-    //A
-    this.A = this.ha * this.a / 2 ;
-    // ru
-    this.ru= this.a /(2 * sin(this.alpha));
-    // ri
-    this.ri = this.c * sin(this.alpha / 2) * sin(this.beta / 2) / sin((this.alpha + this.beta) / 2);
-    // sa
- 
-    
-}
-*/
+var abc=[0.0,0.0,0.0],abg_w=[0.0,0.0,0.0],counter = [0,0,0,0,0,0];
+
+
+
 //
 //
 //
@@ -50,60 +28,14 @@ function cos(x){
     return Math.cos( x * Math.PI / 180);
 }
 
-
-/*
-
-//
-// zwei Seiten und der eingeschlossene Winkel
-// ssw
-/*
-let weg = 2;
-abc[0]=4;
-abc[2]=4;
-abg_w[0]=60;
-if(!ssw(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
-console.log("fehler");
-
-//
-//sss
-//
-abc[0]=4;
-abc[2]=4;
-abc[1]=4;
-if(!winkel(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
-console.log("fehler");
-
-//
-// ssw
-//
-abc[0]=4;
-abg_w[2]=30;
-abg_w[1]=30;
-sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
-console.log("ok");
-*/
-//
-//  wsS
-//
-/*
-abc[0]=4;
-abc[1]=4;
-abg_w[0]=30;
-wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
-console.log("ok");
-*/
 //
 // wsS , sww , winkel , sws
 //
-var abc=[0.0,0.0,0.0],abg_w=[0.0,0.0,0.0];
-abc[0] = document.getElementById('a').value;if(abc[0]){document.getElementById('aa').value=abc[0];}
-abc[1] = document.getElementById('b').value;if(abc[1]){document.getElementById('bb').value=abc[1];}
-abc[2] = document.getElementById('c').value;if(abc[2]){document.getElementById('cc').value=abc[2];}
 
-abg_w[0] = document.getElementById('alpha').value;if(abg_w[0]){document.getElementById('alphaa').value=abg_w[0];}
-abg_w[1] = document.getElementById('beta').value;if(abg_w[1]){document.getElementById('betab').value=abg_w[1];}
-abg_w[2] = document.getElementById('gamma').value;if(abg_w[2]){document.getElementById('gammac').value=abg_w[2];}
 
+   
+
+/*
 
 wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
@@ -111,7 +43,49 @@ if(!winkel(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
 console.log("fehler");
 if(!sws(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]))
 console.log("fehler");
+berechnungen (abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
 console.log("ok");
+*/
+
+
+
+//
+//var arr3 = [abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]];
+// 
+// display ,Eingaben und counter 
+function display(){
+    let arr1 = ['a','b','c','alpha','beta','gamma'];
+    let arr2 = ['aa','bb','cc','alphaa','betab','gammac'];
+    let arr3 = [abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]];
+    for(let i = 0; i< arr1.length ;i++){
+        
+            let x = document.getElementById(arr1[i]);
+            x.addEventListener( "input" , () => {
+                if((counter[0]+counter[1]+counter[2]+counter[3]+counter[4]+counter[5]) <= 3 ){
+                    if((counter[0]+counter[1]+counter[2]+counter[3]+counter[4]+counter[5]) == 3){
+                        if(!counter[i]){
+                           alert("you musst input only 3 ");
+                           document.getElementById(arr1[i]).value = "";
+                        }
+                        else{
+                            if(document.getElementById(arr1[i]).value == ""){
+                                document.getElementById(arr2[i]).value="";
+                                counter[i]=0;
+                                arr3[i]=0;
+                            }
+                            else{
+                               document.getElementById(arr2[i]).value=document.getElementById(arr1[i]).value;
+                               arr3[i] = document.getElementById(arr1[i]).value;    
+                            }
+                        }
+                        }
+                    else{
+                    document.getElementById(arr2[i]).value=document.getElementById(arr1[i]).value;
+                    arr3[i] = document.getElementById(arr1[i]).value;
+                    counter[i]=1;}}
+    });
+    }  
+}
 
 
 
@@ -247,6 +221,46 @@ function wsS(a,b,c,alpha,beta,gamma){
         }
     }
 }
+
+//
+// Berechnungen ha ,hb ,hc ,u ,A ,ri ,ru 
+// ,sa ,sb ,sc ,w_alpha ,w_beta und w_gamma
+//
+//  var obj = {'ha' : 0, 'hb' : 0 , 'hc' : 0 ,'u' : 0 ,'A' :0 , 'ru' : 0 , 'ri' :0 
+//, 'sa' : 0 , 'sb' : 0 , 'sc' : 0 , 'w_alpha' : 0 , 'w_beta' : 0 , 'w_gamma' : 0};
+//
+function berechnungen (a,b,c,alpha,beta,gamma){
+    
+    // ha ,hb und hc berechnen
+    obj.ha = b * sin(gamma);
+    obj.hb = c * sin(alpha);
+    obj.hc = a * sin(beta);
+     
+    //u 
+    obj.u = a + b + c;
+    //A
+    obj.A = obj.ha * a / 2 ;
+    // ru
+    obj.ru= a /(2 * sin(alpha));
+    // ri
+    obj.ri = c * sin(alpha / 2) * sin(beta / 2) / sin((alpha + beta) / 2);
+    // sa ,sb und sc
+    obj.sa = Math.sqrt(2 * (b * b + c * c ) - a * a ) / 2;
+    obj.sb = Math.sqrt(2 * ( c * c + a * a ) - b * b) / 2;
+    obj.sc = Math.sqrt(2 * (a * a + b * b ) - c * c) / 2;
+    //  w_alpha , w_beta und w_gamma
+    //
+    obj.w_alpha = 2 * b * c * cos(alpha / 2) / (b + c);
+    obj.w_beta = 2 * c * a * cos(beta / 2) / (c + a);
+    obj.w_gamma = 2 * a * b * cos(gamma/2) / (a + b);
+
+}
+
+
+
+
+display();
+
 
 
 if(abc[0]){document.getElementById('aa').value=abc[0];}
