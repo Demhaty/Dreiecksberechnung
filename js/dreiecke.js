@@ -78,8 +78,9 @@ function display(){
     }  
 }
 
-
-
+//
+// zwei Seiten und der eingeschlossene Winkel
+//
 function sws(a,b,c,alpha,beta,gamma){
     //
     // a, b und gamma vorhanden
