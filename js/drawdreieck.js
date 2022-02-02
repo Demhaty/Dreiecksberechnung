@@ -57,4 +57,3 @@ function draw(ctx){
 
 }
 
-draw(ctx);
