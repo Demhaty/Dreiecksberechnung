@@ -5,6 +5,7 @@
         <meta charset="utf-8"/>
     </head>
     <body>
+        
         <table>
             <tr>
                 <th></th>
@@ -64,13 +65,39 @@
                 <td></td><td>Radius Inkreis: r<sub>Inkr.</sub>=</td>
                 <td><input type="text" id="Radius_Inkreis" name="Radius_Inkreis"></td>
             </tr>
-
+            <!-- ----------------- 'sa' : 0 , 'sb' : 0 , 'sc' : 0 , 'w_alpha' : 0 , 'w_beta' : 0 , 'w_gamma' :------------------->
+            <tr>
+                <td></td><td>Seitenhalbierende AMa: sa =</td>
+                <td><input type="text" id="sa" name="sa"></td>
+            </tr>
+            <tr>
+                <td></td><td>Seitenhalbierende BMb: sb =</td>
+                <td><input type="text" id="sb" name="sb"></td>
+            </tr>
+            <tr>
+                <td></td><td>Seitenhalbierende CMc: sc =</td>
+                <td><input type="text" id="sc" name="sc"></td>
+            </tr>
+            <tr>
+                <td></td><td>Winkelhalbierende wα =</td>
+                <td><input type="text" id="w_alpha" name="w_alpha"></td>
+            </tr>
+            <tr>
+                <td></td><td>Winkelhalbierende wβ =</td>
+                <td><input type="text" id="w_beta" name="w_beta"></td>
+            </tr>
+            <tr>
+                <td></td><td>Winkelhalbierende wγ =</td>
+                <td><input type="text" id="w_gamma" name="w_gamma"></td>
+            </tr>
       
             
         </table>
-
+        <textarea id="Darstellung_B"  rows="5" cols="50" style="font-size:16pt; font-weight: bold"  readonly></textarea>
        <canvas id='dreieck' width='1600' height='800' style='background-color: #dbcece;'></canvas>
         <script src='js/dreiecke.js'></script>
         <script src='js/drawdreieck.js'></script>
+        <script src='js/Berechnungsweg.js'></script>
+       
     </body>
 </html>

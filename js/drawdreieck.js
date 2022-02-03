@@ -51,7 +51,7 @@ function draw(ctx){
         //
         //
         
-        arr_xy.push(alpha_xy={x:2,y:-15},beta_xy={x:-53,y:-2.5},gamma_xy={x:32,y:20},a_xy={x:15},b_xy={x:-20,y:10}); 
+        arr_xy.push(alpha_xy={x:2,y:-15},beta_xy={x:-53,y:-2.5},gamma_xy={x:((c2-abc[2]*big)/5),y:25},a_xy={x:15},b_xy={x:-20,y:10}); 
         x_c = x_b - c2;
         //winkel c 
         ctx.beginPath();   
@@ -72,7 +72,7 @@ function draw(ctx){
     // 1
     else {
         //arr_xy.push(a_xy={x:2,y:-15},b_xy={x:-53,y:-2.5},c_xy={x:32,y:20});
-        arr_xy.push(alpha_xy={x:40,y:-15},beta_xy={x:-45,y:-10},gamma_xy={x:-2.5,y:30},a_xy={x:15},b_xy={x:-20,y:-5});
+        arr_xy.push(alpha_xy={x:40,y:-10},beta_xy={x:-30,y:-10},gamma_xy={x:2,y:30},a_xy={x:15},b_xy={x:-20,y:-5});
         x_c = x_b - c2;
         //  winkel c
         ctx.beginPath();
@@ -128,7 +128,7 @@ function draw(ctx){
     
     
     
-    
+    arr_xy = [];
    
 
 }
