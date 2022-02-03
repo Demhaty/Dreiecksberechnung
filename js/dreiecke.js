@@ -122,10 +122,13 @@ function sws(a,b,c,alpha,beta,gamma){
 function winkel(a,b,c){
     //
     // alpha ,beta und gamma berechnen
-    //
-    if(a >= b+c)return "a >= b+c";
-    else if(b >= a+c )return "b >= a+c";
-    else if(c >= a+b)return "c >= a+b"
+    // 
+    a = parseFloat(a);
+    b = parseFloat(b);
+    c = parseFloat(c);
+    if(a > b+c || a == b+c)return "a >= b+c";
+    else if(b > a+c || b == a+c)return "b >= a+c";
+    else if(c > a+b || c == a+b)return "c >= a+b"
     else{
     abg_w[0] = acos((a * a - b * b - c * c) / (-2 * b * c));
     abg_w[1] = acos((b * b - c * c - a * a) / (-2 * c * a));
