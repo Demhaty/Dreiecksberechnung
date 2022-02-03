@@ -9,9 +9,9 @@ var abc=[0.0,0.0,0.0],abg_w=[0.0,0.0,0.0],counter = [0,0,0,0,0,0];
 var arr3 = [abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]];
 
 // Reguläre Ausdrücke
-const regex = /^\d+$/;
-const regex2 = /^\d+\.\d+$/;//^\d+\.\d+$
+const regex = /^[1-9]*$|^[0\.]*\d*$|^[1-9]*\.\d*$/;
 
+//const regex2 = /^[1-9]*$|^[0\.]*\d*$|^[1-9]*\.\d*$/;
 //
 // 
 // Winkel in Grad
@@ -71,10 +71,9 @@ function display(){
                                 //
                                 //
                                 //
-                                let result = regex.test(document.getElementById(arr1[i]).value);
-                                let result2 =  regex2.test(document.getElementById(arr1[i]).value);
+                                let result = regex.test(document.getElementById(arr1[i]).value); 
                                 document.getElementById(arr2[i]).value=document.getElementById(arr1[i]).value;
-                                if(result || result2){
+                                if(result){
                                     arr3[i] = document.getElementById(arr1[i]).value;
                                     ctx.clearRect(0,0,cvs.width,cvs.height);all();
                                 }else{alert("Bitte geben eine Zahl");}
@@ -85,9 +84,8 @@ function display(){
                     else{
                         if(document.getElementById(arr1[i]).value != ""){
                             let result = regex.test(document.getElementById(arr1[i]).value);
-                            let result2 =  regex2.test(document.getElementById(arr1[i]).value); 
                             document.getElementById(arr2[i]).value=document.getElementById(arr1[i]).value;
-                            if(result || result2){
+                            if(result){
                                 arr3[i] = document.getElementById(arr1[i]).value;
                                 counter[i]=1;ctx.clearRect(0,0,cvs.width,cvs.height);all();
                             }else{alert("Bitte geben eine Zahl");}
