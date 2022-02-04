@@ -7,11 +7,8 @@ var obj = {'ha' : 0, 'hb' : 0 , 'hc' : 0 ,'u' : 0 ,'A' :0 , 'ru' : 0 , 'ri' :0
 //      Wenn 1 ist ,hat Benutzer etwas eingegeben und 0 nichts eingegeben.
 var abc=[0.0,0.0,0.0],abg_w=[0.0,0.0,0.0],counter = [0,0,0,0,0,0];
 var arr3 = [abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]];
-
-// Reguläre Ausdrücke
+// Reguläre Ausdrücke für Eingaben
 const regex = /^[1-9]*$|^[0\.]*\d*$|^[1-9]*\.\d*$/;
-
-//const regex2 = /^[1-9]*$|^[0\.]*\d*$|^[1-9]*\.\d*$/;
 //
 // 
 // Winkel in Grad
@@ -37,21 +34,17 @@ function sin(x){
 function cos(x){
     return Math.cos( x * Math.PI / 180);
 }
-
-
-
 //
-
 // 
 // display eingegebene Werte, Eingaben und Counter
 function display(){
+    //
+    //      arr1 und arr2 beinhalten Id 
+    //
     let arr1 = ['a','b','c','alpha','beta','gamma'];
     let arr2 = ['aa','bb','cc','alphaa','betab','gammac'];
-    let m =true;
-    //let arr3 = [abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]];
     for(let i = 0; i< arr1.length ;i++){
             display_empty();
-           
             let x = document.getElementById(arr1[i]);
             x.addEventListener( "input" , () => {
                 if((counter[0]+counter[1]+counter[2]+counter[3]+counter[4]+counter[5]) <= 3 ){ 
@@ -69,15 +62,14 @@ function display(){
                             }
                             else{
                                 //
-                                //
+                                // Prüft die Eingaben, ob Zahl ist 
                                 //
                                 let result = regex.test(document.getElementById(arr1[i]).value); 
                                 document.getElementById(arr2[i]).value=document.getElementById(arr1[i]).value;
                                 if(result){
                                     arr3[i] = document.getElementById(arr1[i]).value;
                                     ctx.clearRect(0,0,cvs.width,cvs.height);all();
-                                }else{alert("Bitte geben eine Zahl");}
-                                   
+                                }else{alert("Bitte geben eine Zahl");}      
                             }
                         }
                         }
@@ -98,7 +90,6 @@ function display(){
     });
     }  
 }
-
 //
 // zwei Seiten und der eingeschlossene Winkel
 //
@@ -116,7 +107,6 @@ function sws(a,b,c,alpha,beta,gamma){
         berechnung_weg[4].y="beta = acos((b^2 - c^2 - a^2) / (-2 * c * a))  oder  beta = 180 - alpha - gamma";
         return 1;
     }
-    
     //
     // a, c und beta vorhanden
     // b, alpha und gamma berechnen
@@ -166,10 +156,8 @@ function winkel(a,b,c){
     berechnung_weg[3].y="alpha = acos((a^2 - b^2 - c^2) / (-2 * b * c))";
     berechnung_weg[4].y="beta = acos((b^2 - c^2 - a^2) / (-2 * c * a))";
     berechnung_weg[5].y="gamma = acos((c^2 - a^2 - b^2) / (-2 * a * b)) oder gamma = 180 - beta - alpha";
-    
     return 1;
     }
-
 }
 //
 //  eine Seite und zwei Winkel
@@ -177,28 +165,28 @@ function winkel(a,b,c){
 //
 function sww(a,b,c,alpha,beta,gamma){
     //
-    // berechnet Reste Winkel
+    // Berechnung von Winkel
     // 
     if(alpha == 0 && beta !=0 && gamma != 0){
-        if((180 - beta - gamma) <= 0.0){return 0;}
+        if((180 - beta - gamma) < 0.0 || (180 - beta - gamma) == 0.0){return 0;}
         else{abg_w[0] = 180 - beta - gamma;
         berechnung_weg[3].y="alpha = 180 - beta - gamma";
         }
     }
     else if(alpha != 0 && beta ==0 && gamma != 0){
-        if((180 - alpha - gamma) <= 0.0){return 0;}
+        if((180 - alpha - gamma) <= 0.0 || (180 - alpha - gamma) == 0.0){return 0;}
         else{abg_w[1] = 180 - alpha - gamma;
         berechnung_weg[4].y="beta = 180 - alpha - gamma";
         }
     }
     else if(alpha != 0 && beta !=0 && gamma == 0){
-        if((180 - beta - alpha) <= 0.0){return 0;}
+        if(((180 - beta - alpha) < 0.0) || ((180 - beta - alpha) == 0.0)){return 0;}
         else{abg_w[2] = 180 - beta - alpha;
         berechnung_weg[5].y="gamma = 180 - beta - alpha";
         }
     }
     //
-    // berechnet Reste Seiten
+    // Berechnung von Seiten
     //
     if(a != 0 && b == 0 && c == 0){
         abc[1] = (a * sin(abg_w[1])) / sin(abg_w[0]);
@@ -223,7 +211,6 @@ function sww(a,b,c,alpha,beta,gamma){
     }
     return 0;
 }
-
 //
 // zwei Seiten und der der größeren Seite gegenüberliegende Winkel (SsW oder WsS)
 //
@@ -317,26 +304,26 @@ function berechnungen (a,b,c,alpha,beta,gamma){
 
 }
 
-
+//
+// ruft die Funktionen : (SSS (winkel), SWS , SsW  oder SWW ,um Masse von Dreiecken zu berechnen
+// 
 function all(){
-    
-    
+    //
+    // Die Eingaben werden in beide arr (abc [Seiten] und abg_w [Winkel] ) speichert
+    //
     for(let i=0; i<arr3.length;i++){
         if(i < 3){
             abc[i]= parseFloat(arr3[i]);
         }else{ abg_w[i-3]=parseFloat(arr3[i]);}
     }
-    
     //
     //  SSS
     //
     if((counter[0]+counter[1]+counter[2]) == 3){
         berechnung_weg[19].x = (winkel(abc[0],abc[1],abc[2]));
         if(winkel(abc[0],abc[1],abc[2]) == 1){
-            //winkel(abc[0],abc[1],abc[2]);
             berechnungen (abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
             berechnung_weg[19].y="drei Seiten (SSS)";
-            console.log("ok");
             display_new();
             draw(ctx);
             document.getElementById('Darstellung_B').innerHTML = berechnung_weg[19].y;
@@ -351,10 +338,8 @@ function all(){
     else if(((counter[0]+counter[1]+counter[5]) == 3)  || ((counter[0]+counter[2]+counter[4]) == 3) 
                         ||  ((counter[2]+counter[1]+counter[3]) == 3) ){
                             berechnung_weg[19].x = sws(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
-                            //sws(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             if(berechnung_weg[19].x){
                             berechnung_weg[19].y= "zwei Seiten und der eingeschlossene Winkel (SWS)";
-                            //console.log(x);
                             berechnungen (abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             display_new();
                             draw(ctx);
@@ -372,16 +357,13 @@ function all(){
     || ((counter[2]+counter[4]+counter[5]) == 3) || ((counter[2]+counter[3]+counter[5]) == 3) || ((counter[2]+counter[3]+counter[4]) == 3)){
                             berechnung_weg[19].x = sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             if(berechnung_weg[19].x){
-                            //sww(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             berechnung_weg[19].y="eine Seite und zwei Winkel (SWW, WSW oder WWS)";
-                            //console.log(x);
                             berechnungen (abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             display_new();
                             draw(ctx);
                             document.getElementById('Darstellung_B').innerHTML = berechnung_weg[19].y;
                         }
                         else{document.getElementById('Darstellung_B').innerHTML = "Fehler";}
-
     }
     //
     // Ssw oder wsS
@@ -390,10 +372,8 @@ function all(){
     ((counter[0]+counter[2]+counter[5]) == 3) || ((counter[0]+counter[2]+counter[3]) == 3) ||
     ((counter[2]+counter[1]+counter[5]) == 3) || ((counter[2]+counter[1]+counter[4]) == 3) ){
                             berechnung_weg[19].x = wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
-                            //wsS(abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             if(berechnung_weg[19].x){
                             berechnung_weg[19].y="zwei Seiten und der der größeren Seite gegenüberliegende Winkel (SsW oder WsS)";
-                            //console.log(x);
                             berechnungen (abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2]);
                             display_new();
                             draw(ctx);
@@ -404,14 +384,14 @@ function all(){
     }else{
         if((counter[0]+counter[1]+counter[2]+counter[3]+counter[4]+counter[5]) == 3){
         document.getElementById('Darstellung_B').innerHTML = "Das Dreieck kann aufgrund dieser Angaben nicht eindeutig oder gar nicht berechnet werden.";}
-        //console.log("Das Dreieck kann aufgrund dieser Angaben nicht eindeutig oder gar nicht berechnet werden.")
     }
-    
     B_weg();
 }
 display();
 
-
+//
+// Werte wurden gelöscht. Nachdem Benutzer ein Wert löscht   
+//
 function display_empty(){
     if((counter[0]+counter[1]+counter[2]+counter[3]+counter[4]+counter[5]) < 3){
         let arr2 = ['aa','bb','cc','alphaa','betab','gammac','ha','hb','hc','u','A','Radius_Umkreis','Radius_Inkreis','sa','sb','sc','w_alpha','w_beta','w_gamma'];
@@ -422,13 +402,14 @@ function display_empty(){
         }
     }
 }
-
+//
+//  Alle Berechnungen werden angezeigt
+//
 function display_new(){
     
     let arr1 = [ abc[0],abc[1],abc[2],abg_w[0],abg_w[1],abg_w[2],obj.ha,obj.hb,obj.hc,obj.u,obj.A,obj.ru,obj.ri,obj.sa,obj.sb,obj.sc,obj.w_alpha,obj.w_beta,obj.w_gamma];
     let arr2 = ['aa','bb','cc','alphaa','betab','gammac','ha','hb','hc','u','A','Radius_Umkreis','Radius_Inkreis','sa','sb','sc','w_alpha','w_beta','w_gamma'];
     for(let i=0 ;i<arr2.length;i++){
-        //document.getElementById(arr2[i]).value = arr1[i] ;
         document.getElementById(arr2[i]).value = Math.round((arr1[i] + Number.EPSILON)*100 )/100 ;
     }
 }
