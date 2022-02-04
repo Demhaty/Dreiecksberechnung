@@ -34,6 +34,10 @@ function sin(x){
 function cos(x){
     return Math.cos( x * Math.PI / 180);
 }
+// // tan(x)  deg => Rad // von Grad nach Radiant 
+function tan(x){
+    return Math.tan(x * Math.PI /180);
+}
 //
 // 
 // display eingegebene Werte, Eingaben und Counter

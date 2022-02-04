@@ -50,7 +50,7 @@ function draw(ctx){
     //
     //  3
     else if(c2 > abc[2]*big){
-        arr_xy.push(alpha_xy={x:2,y:-15},beta_xy={x:-53,y:-2.5},gamma_xy={x:((c2-abc[2]*big)/5),y:25},a_xy={x:15},b_xy={x:-20,y:10}); 
+        arr_xy.push(a_xy={x:15},b_xy={x:-20,y:10}); 
         x_c = x_b - c2;
         //winkel c 
         ctx.beginPath();   
@@ -64,8 +64,7 @@ function draw(ctx){
     //
     // 1
     else {
-        
-        arr_xy.push(alpha_xy={x:40,y:-10},beta_xy={x:-30,y:-10},gamma_xy={x:-2,y:40},a_xy={x:15},b_xy={x:-20,y:-5});
+        arr_xy.push(a_xy={x:15},b_xy={x:-20,y:-5});
         x_c = x_b - c2;
         //  winkel c
         ctx.beginPath();
@@ -96,9 +95,15 @@ function draw(ctx){
     //    alpha , beta und gamma Winkel_Zeichen
     //
     ctx.font = "10px Arial";
-    ctx.fillText('α', x_a+alpha_xy.x  , y_a+alpha_xy.y); 
-    ctx.fillText('β', x_b+beta_xy.x  , y_a+beta_xy.y);
-    ctx.fillText('γ', x_c+gamma_xy.x  , y_c+gamma_xy.y);
+    
+    ctx.fillText('α', x_a+45 , y_a-(60*sin(abg_w[0])/3)); 
+    ctx.fillText('β', x_b-45  , y_a-(60*sin(abg_w[1])/3));
+    if(abg_w[0]==90){ctx.fillText('γ', x_c +5 , y_c+45);}
+    else if(abg_w[1]==90){ctx.fillText('γ', x_c -10 , y_c+45);}
+    else if(x_c > x_b){ctx.fillText('γ', x_c -30 , 3+y_c+(60*sin(abg_w[2])/3));}
+    else if(x_c < x_a){ctx.fillText('γ', x_c +30 , y_c+(60*sin(abg_w[2])/3)+5);} 
+    else
+    ctx.fillText('γ', x_c -5 , y_c+45);
     //
     // a , b und c Seiten_Zeichen
     // 
@@ -191,8 +196,9 @@ function Winkelhalbierenden(){
         //
         // 
         //gamma1 = 180 - 90 -beta
-        c = Math.sqrt(Math.abs(obj.w_gamma*Obj.big*obj.w_gamma*Obj.big - abc[0]*Obj.big*abc[0]*Obj.big));
+        //c = Math.sqrt(Math.abs(obj.w_gamma*Obj.big*obj.w_gamma*Obj.big - abc[0]*Obj.big*abc[0]*Obj.big));
         h = abc[0]*Obj.big*sin(abg_w[1]);
+        c = obj.ri*Obj.big / (tan(abg_w[1]/2));
         ctx.beginPath();
         ctx.moveTo(Obj.x_c, Obj.y_c);
         if(Obj.weg == 2){c= sin(90-(abg_w[2]/2)-(180-90-(90-abg_w[0])))*obj.w_gamma*Obj.big;h = abc[1]*Obj.big*sin(abg_w[0]);
@@ -200,8 +206,24 @@ function Winkelhalbierenden(){
         }else if(Obj.weg == 3){c= sin(90-(abg_w[2]/2)-(180-90-(90-abg_w[1])))*obj.w_gamma*Obj.big;h = abc[0]*Obj.big*sin(abg_w[1]);
             ctx.lineTo(Obj.x_c+c, Obj.y_c+h);
         }
-        else
-        ctx.lineTo(Obj.x_a+c, Obj.y_c+h);
+        else{
+            if(abc[0]>abc[1]){
+                if(abg_w[0]==90){
+                    c = obj.ri*Obj.big / (tan(abg_w[0]/2));
+                    ctx.lineTo(Obj.x_a+c+Obj.big-12, Obj.y_c+h);
+                }
+                else
+                ctx.lineTo(Obj.x_b-c+12, Obj.y_c+h);
+            }
+            else{
+                if(abg_w[1]==90){
+                    c = obj.ri*Obj.big / (tan(abg_w[1]/2));
+                    ctx.lineTo(Obj.x_b-c-Obj.big+(c/4), Obj.y_c+h);
+                }
+                else
+                ctx.lineTo(Obj.x_b-c-12, Obj.y_c+h);
+            }
+        }
         ctx.stroke();
     }else{ctx.clearRect(0,0,cvs.width,cvs.height);draw(ctx);}
 }
@@ -212,7 +234,7 @@ function Winkelhalbierenden(){
 //
 function Inkreis(){
     if(document.getElementById("Check3").checked == true){
-        if(abc[0] == abc[1] && abc[0] == abc[2]){
+        if(abc[0] == abc[1]){
             let gamma_1 = 180 -90 -(abg_w[0]/2)
             let new_gamma = gamma_1 * 2;
             let b1 = sin(abg_w[0]/2)*abc[2]*Obj.big/sin(new_gamma);
@@ -220,14 +242,15 @@ function Inkreis(){
             let h = b1*sin(abg_w[0]/2);
             let c = b1 *sin(gamma_1);
             //
-            // if a = b = c
             //
             ctx.beginPath();
             ctx.arc(Obj.x_a+c,Obj.y_a-h,h, 0, 2 * Math.PI);
             ctx.stroke();
-        }else{
+        }
+        else {
+            let c1 = obj.ri*Obj.big / (tan(abg_w[1]/2));
             ctx.beginPath();
-            ctx.arc(Obj.x_c,Obj.y_a-obj.ri*Obj.big , obj.ri*Obj.big, 0, 2 * Math.PI);
+            ctx.arc(Obj.x_b-c1,Obj.y_a-obj.ri*Obj.big , obj.ri*Obj.big, 0, 2 * Math.PI);
             ctx.stroke();
         }
     }else{ctx.clearRect(0,0,cvs.width,cvs.height);draw(ctx);}
